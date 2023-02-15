@@ -1,13 +1,13 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import { registerAzureUtilsExtensionVariables } from "@microsoft/vscode-azext-azureutils";
+//import { registerAzureUtilsExtensionVariables } from "@microsoft/vscode-azext-azureutils";
 import { registerUIExtensionVariables } from "@microsoft/vscode-azext-utils";
 import {
   ExtensionContext,
   ProgressLocation,
-  TextDocument,
-  TextEditor,
+  //TextDocument,
+  //TextEditor,
   Uri,
   window,
   workspace,
@@ -16,18 +16,18 @@ import * as lsp from "vscode-languageclient/node";
 // import { CreateBicepConfigurationFile } from "./commands/createConfigurationFile";
 // import { DecompileCommand } from "./commands/decompile";
 // import { ImportKubernetesManifestCommand } from "./commands/importKubernetesManifest";
-import { PasteAsBicepCommand } from "./commands/pasteAsBicep";
+//import { PasteAsBicepCommand } from "./commands/pasteAsBicep";
 import { BicepCacheContentProvider, createLanguageService } from "./language";
 //import { TreeManager } from "./tree/TreeManager";
 import { updateUiContext } from "./updateUiContext";
 import { createAzExtOutputChannel } from "./utils/AzExtOutputChannel";
-import { OutputChannelManager } from "./utils/OutputChannelManager";
+//import { OutputChannelManager } from "./utils/OutputChannelManager";
 import { BicepVisualizerViewManager } from "./visualizer";
 import {
   bicepConfigurationPrefix,
-  bicepLanguageId,
+  //bicepLanguageId,
 } from "./language/constants";
-import { SuppressedWarningsManager } from "./commands/SuppressedWarningsManager";
+//import { SuppressedWarningsManager } from "./commands/SuppressedWarningsManager";
 import { Disposable } from "./utils/disposable";
 import { activateWithTelemetryAndErrorHandling } from "./utils/telemetry";
 import { createLogger, getLogger, resetLogger } from "./utils/logger";
@@ -88,11 +88,11 @@ export async function activate(
   extension.register(createLogger(extensionContext, outputChannel));
 
   registerUIExtensionVariables({ context: extensionContext, outputChannel });
-  registerAzureUtilsExtensionVariables({
-    context: extensionContext,
-    outputChannel,
-    prefix: bicepLanguageId,
-  });
+  // registerAzureUtilsExtensionVariables({
+  //   context: extensionContext,
+  //   outputChannel,
+  //   prefix: bicepLanguageId,
+  // });
 
   // Activate and launch language server
   await activateWithTelemetryAndErrorHandling(
@@ -123,22 +123,22 @@ export async function activate(
           new BicepVisualizerViewManager(extension.extensionUri, languageClient)
         );
 
-        const outputChannelManager = extension.register(
-          new OutputChannelManager("Bicep Operations", bicepConfigurationPrefix)
-        );
+        // const outputChannelManager = extension.register(
+        //   new OutputChannelManager("Bicep Operations", bicepConfigurationPrefix)
+        // );
 
         // const treeManager = extension.register(
         //   new TreeManager(outputChannelManager)
         // );
 
-        const suppressedWarningsManager = new SuppressedWarningsManager();
+        //const suppressedWarningsManager = new SuppressedWarningsManager();
 
         // Register commands.
-        const pasteAsBicepCommand = new PasteAsBicepCommand(
-          languageClient,
-          outputChannelManager,
-          suppressedWarningsManager
-        );
+        // const pasteAsBicepCommand = new PasteAsBicepCommand(
+        //   languageClient,
+        //   outputChannelManager,
+        //   suppressedWarningsManager
+        // );
         await extension
           .register(new CommandManager(extensionContext))
           .registerCommands(
@@ -167,37 +167,37 @@ export async function activate(
           );
 
         // Register events
-        pasteAsBicepCommand.registerForPasteEvents(extension);
+        //pasteAsBicepCommand.registerForPasteEvents(extension);
 
-        extension.register(
-          window.onDidChangeActiveTextEditor(
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            async (editor: TextEditor | undefined) => {
-              await updateUiContext(editor?.document);
-            }
-          )
-        );
+        // extension.register(
+        //   window.onDidChangeActiveTextEditor(
+        //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        //     async (editor: TextEditor | undefined) => {
+        //       await updateUiContext(editor?.document);
+        //     }
+        //   )
+        // );
 
-        extension.register(
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          workspace.onDidCloseTextDocument(async (_d: TextDocument) => {
-            await updateUiContext(window.activeTextEditor?.document);
-          })
-        );
+        // extension.register(
+        //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        //   workspace.onDidCloseTextDocument(async (_d: TextDocument) => {
+        //     await updateUiContext(window.activeTextEditor?.document);
+        //   })
+        // );
 
-        extension.register(
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          workspace.onDidOpenTextDocument(async (_d: TextDocument) => {
-            await updateUiContext(window.activeTextEditor?.document);
-          })
-        );
+        // extension.register(
+        //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        //   workspace.onDidOpenTextDocument(async (_d: TextDocument) => {
+        //     await updateUiContext(window.activeTextEditor?.document);
+        //   })
+        // );
 
-        extension.register(
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          workspace.onDidSaveTextDocument(async (_d: TextDocument) => {
-            await updateUiContext(window.activeTextEditor?.document);
-          })
-        );
+        // extension.register(
+        //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        //   workspace.onDidSaveTextDocument(async (_d: TextDocument) => {
+        //     await updateUiContext(window.activeTextEditor?.document);
+        //   })
+        // );
 
         await languageClient.start();
         getLogger().info("Bicep language service started.");
