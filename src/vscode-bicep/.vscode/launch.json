@@ -11,6 +11,10 @@
         "--enable-proposed-api=ms-azuretools.vscode-bicep",
         "--extensionDevelopmentPath=${workspaceRoot}"
       ],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ],
       "sourceMaps": true,
       "preLaunchTask": "${defaultBuildTask}",
       "env": {

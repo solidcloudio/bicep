@@ -251,8 +251,9 @@ export async function importResourceIconInline(
 
     // Microsoft.Storage
     case "microsoft.storage/storageaccounts":
-      return (await import("./storage/10086-icon-service-Storage-Accounts.svg"))
-        .default;
+      //return (await import("./storage/10086-icon-service-Storage-Accounts.svg"))
+      return (await import("./general/10838-icon-service-Storage-Azure-Files.svg"))
+      .default;
     case "microsoft.storage/storageaccounts/fileservices":
       return (
         await import("./general/10838-icon-service-Storage-Azure-Files.svg")

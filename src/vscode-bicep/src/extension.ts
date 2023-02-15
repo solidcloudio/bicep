@@ -13,12 +13,12 @@ import {
   workspace,
 } from "vscode";
 import * as lsp from "vscode-languageclient/node";
-import { CreateBicepConfigurationFile } from "./commands/createConfigurationFile";
-import { DecompileCommand } from "./commands/decompile";
-import { ImportKubernetesManifestCommand } from "./commands/importKubernetesManifest";
+// import { CreateBicepConfigurationFile } from "./commands/createConfigurationFile";
+// import { DecompileCommand } from "./commands/decompile";
+// import { ImportKubernetesManifestCommand } from "./commands/importKubernetesManifest";
 import { PasteAsBicepCommand } from "./commands/pasteAsBicep";
 import { BicepCacheContentProvider, createLanguageService } from "./language";
-import { TreeManager } from "./tree/TreeManager";
+//import { TreeManager } from "./tree/TreeManager";
 import { updateUiContext } from "./updateUiContext";
 import { createAzExtOutputChannel } from "./utils/AzExtOutputChannel";
 import { OutputChannelManager } from "./utils/OutputChannelManager";
@@ -32,21 +32,21 @@ import { Disposable } from "./utils/disposable";
 import { activateWithTelemetryAndErrorHandling } from "./utils/telemetry";
 import { createLogger, getLogger, resetLogger } from "./utils/logger";
 import {
-  ShowVisualizerCommand,
+  //ShowVisualizerCommand,
   ShowVisualizerToSideCommand,
 } from "./commands/showVisualizer";
-import { ShowSourceCommand } from "./commands/showSource";
-import { WalkthroughCopyToClipboardCommand } from "./commands/gettingStarted/WalkthroughCopyToClipboardCommand";
-import { WalkthroughCreateBicepFileCommand } from "./commands/gettingStarted/WalkthroughCreateBicepFileCommand";
-import { WalkthroughOpenBicepFileCommand } from "./commands/gettingStarted/WalkthroughOpenBicepFileCommand";
-import { ForceModulesRestoreCommand } from "./commands/forceModulesRestore";
-import { InsertResourceCommand } from "./commands/insertResource";
-import { DeployCommand } from "./commands/deploy";
-import { GenerateParamsCommand } from "./commands/generateParams";
-import { BuildCommand } from "./commands/build";
+// import { ShowSourceCommand } from "./commands/showSource";
+// import { WalkthroughCopyToClipboardCommand } from "./commands/gettingStarted/WalkthroughCopyToClipboardCommand";
+// import { WalkthroughCreateBicepFileCommand } from "./commands/gettingStarted/WalkthroughCreateBicepFileCommand";
+// import { WalkthroughOpenBicepFileCommand } from "./commands/gettingStarted/WalkthroughOpenBicepFileCommand";
+// import { ForceModulesRestoreCommand } from "./commands/forceModulesRestore";
+// import { InsertResourceCommand } from "./commands/insertResource";
+// import { DeployCommand } from "./commands/deploy";
+// import { GenerateParamsCommand } from "./commands/generateParams";
+// import { BuildCommand } from "./commands/build";
 import { CommandManager } from "./commands/commandManager";
-import { setGlobalStateKeysToSyncBetweenMachines } from "./globalState";
-import * as surveys from "./feedback/surveys";
+//import { setGlobalStateKeysToSyncBetweenMachines } from "./globalState";
+//import * as surveys from "./feedback/surveys";
 
 let languageClient: lsp.LanguageClient | null = null;
 
@@ -114,10 +114,10 @@ export async function activate(
           )
         );
 
-        setGlobalStateKeysToSyncBetweenMachines(extensionContext.globalState);
+        //setGlobalStateKeysToSyncBetweenMachines(extensionContext.globalState);
 
         // Show appropriate surveys
-        surveys.showSurveys(extensionContext.globalState);
+        //surveys.showSurveys(extensionContext.globalState);
 
         const viewManager = extension.register(
           new BicepVisualizerViewManager(extension.extensionUri, languageClient)
@@ -127,9 +127,9 @@ export async function activate(
           new OutputChannelManager("Bicep Operations", bicepConfigurationPrefix)
         );
 
-        const treeManager = extension.register(
-          new TreeManager(outputChannelManager)
-        );
+        // const treeManager = extension.register(
+        //   new TreeManager(outputChannelManager)
+        // );
 
         const suppressedWarningsManager = new SuppressedWarningsManager();
 
@@ -142,28 +142,28 @@ export async function activate(
         await extension
           .register(new CommandManager(extensionContext))
           .registerCommands(
-            new BuildCommand(languageClient, outputChannelManager),
-            new GenerateParamsCommand(languageClient, outputChannelManager),
-            new CreateBicepConfigurationFile(languageClient),
-            new DeployCommand(
-              languageClient,
-              outputChannelManager,
-              treeManager
-            ),
-            new DecompileCommand(languageClient, outputChannelManager),
-            new ForceModulesRestoreCommand(
-              languageClient,
-              outputChannelManager
-            ),
-            new InsertResourceCommand(languageClient),
-            pasteAsBicepCommand,
-            new ShowVisualizerCommand(viewManager),
-            new ShowVisualizerToSideCommand(viewManager),
-            new ShowSourceCommand(viewManager),
-            new WalkthroughCopyToClipboardCommand(),
-            new WalkthroughCreateBicepFileCommand(),
-            new WalkthroughOpenBicepFileCommand(),
-            new ImportKubernetesManifestCommand(languageClient)
+            // new BuildCommand(languageClient, outputChannelManager),
+            // new GenerateParamsCommand(languageClient, outputChannelManager),
+            // new CreateBicepConfigurationFile(languageClient),
+            // new DeployCommand(
+            //   languageClient,
+            //   outputChannelManager,
+            //   treeManager
+            // ),
+            // new DecompileCommand(languageClient, outputChannelManager),
+            // new ForceModulesRestoreCommand(
+            //   languageClient,
+            //   outputChannelManager
+            // ),
+            // new InsertResourceCommand(languageClient),
+            // pasteAsBicepCommand,
+            //new ShowVisualizerCommand(viewManager),
+            new ShowVisualizerToSideCommand(viewManager)
+            //new ShowSourceCommand(viewManager),
+            // new WalkthroughCopyToClipboardCommand(),
+            // new WalkthroughCreateBicepFileCommand(),
+            // new WalkthroughOpenBicepFileCommand(),
+            // new ImportKubernetesManifestCommand(languageClient)
           );
 
         // Register events
