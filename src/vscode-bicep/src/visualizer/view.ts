@@ -214,7 +214,7 @@ export class BicepVisualizerView extends Disposable {
     const scriptUri = this.webviewPanel.webview.asWebviewUri(
       vscode.Uri.joinPath(this.extensionUri, "out", "visualizer.js")
     );
-
+    
     return `
       <!DOCTYPE html>
       <html lang="en">
@@ -228,6 +228,7 @@ export class BicepVisualizerView extends Disposable {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
       </head>
       <body>
+        <h1>Hello world</h1>
         <div id="root"></div>
         <script nonce="${nonce}" src="${scriptUri}" />
       </body>

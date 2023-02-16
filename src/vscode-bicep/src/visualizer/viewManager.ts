@@ -29,16 +29,16 @@ export class BicepVisualizerViewManager
       )
     );
 
-    this.languageClient.clientOptions.middleware = {
-      ...(this.languageClient.clientOptions.middleware ?? {}),
-      handleDiagnostics: (uri, diagnostics, next) => {
-        for (const view of this.viewsByPath.values()) {
-          view.render();
-        }
+    // this.languageClient.clientOptions.middleware = {
+    //   ...(this.languageClient.clientOptions.middleware ?? {}),
+    //   handleDiagnostics: (uri, diagnostics, next) => {
+    //     for (const view of this.viewsByPath.values()) {
+    //       view.render();
+    //     }
 
-        next(uri, diagnostics);
-      },
-    };
+    //     next(uri, diagnostics);
+    //   },
+    // };
   }
 
   get activeDocumentUri(): vscode.Uri | undefined {
