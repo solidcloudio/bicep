@@ -34,7 +34,7 @@ import { createLogger, getLogger, resetLogger } from "./utils/logger";
 import {
   //ShowVisualizerCommand,
   ShowVisualizerToSideCommand,
-} from "./commands/showVisualizer";
+} from "./new/showVisualizer";
 // import { ShowSourceCommand } from "./commands/showSource";
 // import { WalkthroughCopyToClipboardCommand } from "./commands/gettingStarted/WalkthroughCopyToClipboardCommand";
 // import { WalkthroughCreateBicepFileCommand } from "./commands/gettingStarted/WalkthroughCreateBicepFileCommand";
